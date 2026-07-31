@@ -66,6 +66,7 @@ class MovimientoCajaController extends Controller
         ]);
 
         MovimientoCaja::create([
+            'user_id' => auth()->id(),
             'tipo' => $request->tipo,
             'concepto' => $request->concepto,
             'categoria' => $request->categoria,

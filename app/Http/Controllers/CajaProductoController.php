@@ -39,7 +39,8 @@ class CajaProductoController extends Controller
             ->where('estado', 'pagada')
             ->count();
 
-        $cajaAbierta = CajaAperturaCierre::where('estado', 'abierta')->exists();
+        $cajaAbierta = CajaAperturaCierre::where('user_id', auth()->id())
+            ->where('estado', 'abierta')->exists();
 
         return view('caja_productos.index', compact(
             'clientes',
@@ -54,11 +55,12 @@ class CajaProductoController extends Controller
 
     public function store(Request $request)
     {
-        $cajaAbierta = CajaAperturaCierre::where('estado', 'abierta')->exists();
+        $cajaAbierta = CajaAperturaCierre::where('user_id', auth()->id())
+            ->where('estado', 'abierta')->exists();
 
         if (!$cajaAbierta) {
             return redirect()->route('caja.productos.index')
-                ->withErrors(['caja' => 'No puedes registrar ventas porque no hay una caja abierta.']);
+                ->withErrors(['caja' => 'No puedes registrar ventas porque no tienes una caja abierta.']);
         }
 
         $request->validate([
@@ -200,6 +202,7 @@ class CajaProductoController extends Controller
             // Registrar Movimiento de Caja
             if ($totalVenta > 0) {
                 \App\Models\MovimientoCaja::create([
+                    'user_id' => auth()->id(),
                     'tipo' => 'entrada',
                     'concepto' => 'Venta POS ' . $venta->numero_venta,
                     'categoria' => 'otro',

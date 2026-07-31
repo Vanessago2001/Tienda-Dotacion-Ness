@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CajaAperturaCierre extends Model
 {
@@ -10,6 +11,7 @@ class CajaAperturaCierre extends Model
 
     protected $fillable = [
         'fecha',
+        'user_id',
         'saldo_inicial',
         'ventas_efectivo',
         'ventas_transferencia',
@@ -46,4 +48,9 @@ class CajaAperturaCierre extends Model
         'dinero_contado' => 'decimal:2',
         'diferencia' => 'decimal:2',
     ];
+
+    public function usuario(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -12,14 +12,20 @@ class CajaAperturaCierreController extends Controller
     public function index()
     {
         $fechaHoy = now()->toDateString();
+        $userId = auth()->id();
 
-        $cajaAbierta = CajaAperturaCierre::where('estado', 'abierta')
+        // Cada cajero solo ve y responde por su propia caja
+        $cajaAbierta = CajaAperturaCierre::where('user_id', $userId)
+            ->where('estado', 'abierta')
             ->latest()
             ->first();
 
-        $historialCajas = CajaAperturaCierre::latest()->take(20)->get();
+        $historialCajas = CajaAperturaCierre::where('user_id', $userId)
+            ->latest()
+            ->take(20)
+            ->get();
 
-        $resumen = $this->calcularResumenCaja($fechaHoy);
+        $resumen = $this->calcularResumenCaja($fechaHoy, $userId);
 
         return view('apertura_cierre_caja.index', compact('cajaAbierta', 'historialCajas', 'resumen'));
     }
@@ -31,15 +37,19 @@ class CajaAperturaCierreController extends Controller
             'observacion_apertura' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $existeCajaAbierta = CajaAperturaCierre::where('estado', 'abierta')->exists();
+        // Solo se bloquea si ESTE usuario ya tiene una caja abierta
+        $existeCajaAbierta = CajaAperturaCierre::where('user_id', auth()->id())
+            ->where('estado', 'abierta')
+            ->exists();
 
         if ($existeCajaAbierta) {
             return redirect()->route('apertura-cierre-caja.index')
-                ->with('error', 'Ya existe una caja abierta. Debes cerrarla antes de abrir otra.');
+                ->with('error', 'Ya tienes una caja abierta. Debes cerrarla antes de abrir otra.');
         }
 
         CajaAperturaCierre::create([
             'fecha' => now()->toDateString(),
+            'user_id' => auth()->id(),
             'saldo_inicial' => $request->saldo_inicial,
             'estado' => 'abierta',
             'fecha_apertura' => now(),
@@ -57,12 +67,18 @@ class CajaAperturaCierreController extends Controller
             'observacion_cierre' => ['nullable', 'string', 'max:500'],
         ]);
 
+        // Cada cajero solo puede cerrar su propia caja
+        if ($caja->user_id !== auth()->id()) {
+            return redirect()->route('apertura-cierre-caja.index')
+                ->with('error', 'No puedes cerrar la caja de otro usuario. Cada cajero responde por la suya.');
+        }
+
         if ($caja->estado === 'cerrada') {
             return redirect()->route('apertura-cierre-caja.index')
                 ->with('error', 'Esta caja ya se encuentra cerrada.');
         }
 
-        $resumen = $this->calcularResumenCaja($caja->fecha->toDateString());
+        $resumen = $this->calcularResumenCaja($caja->fecha->toDateString(), $caja->user_id);
 
         $saldoEsperado = $caja->saldo_inicial
             + $resumen['ventas_efectivo']
@@ -93,32 +109,17 @@ class CajaAperturaCierreController extends Controller
             ->with('success', 'Caja cerrada correctamente.');
     }
 
-    private function calcularResumenCaja(string $fecha): array
+    private function calcularResumenCaja(string $fecha, ?int $userId = null): array
     {
-        $ventasEfectivo = Venta::whereDate('fecha', $fecha)
+        $ventasBase = fn () => Venta::whereDate('fecha', $fecha)
             ->where('estado', 'pagada')
-            ->where('metodo_pago', 'efectivo')
-            ->sum('total');
+            ->when($userId, fn ($q) => $q->where('user_id', $userId));
 
-        $ventasTransferencia = Venta::whereDate('fecha', $fecha)
-            ->where('estado', 'pagada')
-            ->where('metodo_pago', 'transferencia')
-            ->sum('total');
-
-        $ventasTarjeta = Venta::whereDate('fecha', $fecha)
-            ->where('estado', 'pagada')
-            ->where('metodo_pago', 'tarjeta')
-            ->sum('total');
-
-        $ventasNequi = Venta::whereDate('fecha', $fecha)
-            ->where('estado', 'pagada')
-            ->where('metodo_pago', 'nequi')
-            ->sum('total');
-
-        $ventasDaviplata = Venta::whereDate('fecha', $fecha)
-            ->where('estado', 'pagada')
-            ->where('metodo_pago', 'daviplata')
-            ->sum('total');
+        $ventasEfectivo = $ventasBase()->where('metodo_pago', 'efectivo')->sum('total');
+        $ventasTransferencia = $ventasBase()->where('metodo_pago', 'transferencia')->sum('total');
+        $ventasTarjeta = $ventasBase()->where('metodo_pago', 'tarjeta')->sum('total');
+        $ventasNequi = $ventasBase()->where('metodo_pago', 'nequi')->sum('total');
+        $ventasDaviplata = $ventasBase()->where('metodo_pago', 'daviplata')->sum('total');
 
         $totalVentas = $ventasEfectivo + $ventasTransferencia + $ventasTarjeta + $ventasNequi + $ventasDaviplata;
 
@@ -126,11 +127,13 @@ class CajaAperturaCierreController extends Controller
             ->where('tipo', 'entrada')
             ->where('estado', 'activo')
             ->where('concepto', 'not like', 'Venta POS%')
+            ->when($userId, fn ($q) => $q->where('user_id', $userId))
             ->sum('valor');
 
         $salidasGastos = MovimientoCaja::whereDate('fecha', $fecha)
             ->where('tipo', 'salida')
             ->where('estado', 'activo')
+            ->when($userId, fn ($q) => $q->where('user_id', $userId))
             ->sum('valor');
 
         return [
