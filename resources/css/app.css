@@ -1,0 +1,82 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+body{
+    background: linear-gradient(135deg, #0d3f3c 0%, #1c7a74 45%, #40E0D0 100%);
+    color: #0f172a;
+}
+
+h1, h2, h3, h4, h5, h6, p, label, td, th, li, a, span {
+    color: #0f172a;
+}
+
+.bg-white {
+    background-color: rgba(255, 255, 255, 0.94) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100,
+.bg-slate-50 {
+    background-color: rgba(230, 251, 248, 0.85) !important;
+}
+
+.border-gray-100,
+.border-gray-200,
+.border-slate-200 {
+    border-color: #baf2eb !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 8px 20px rgba(64, 224, 208, 0.12) !important;
+}
+
+.text-indigo-600,
+.text-indigo-700,
+.text-indigo-800,
+.text-indigo-500,
+.text-teal-600,
+.text-teal-700,
+.text-teal-800,
+.text-teal-500,
+.text-gray-500,
+.text-gray-600,
+.text-gray-700,
+.text-gray-800,
+.text-gray-900,
+.text-slate-600,
+.text-slate-700,
+.text-slate-800 {
+    color: #0f766e !important;
+}
+
+.text-indigo-800,
+.text-teal-800 {
+    color: #115e59 !important;
+}
+
+.border-indigo-400,
+.border-indigo-500,
+.border-indigo-700 {
+    border-color: #40E0D0 !important;
+}
+
+.bg-indigo-50,
+.bg-indigo-100 {
+    background-color: rgba(64, 224, 208, 0.16) !important;
+}
+
+.bg-purple-100,
+.bg-blue-100,
+.bg-orange-100 {
+    background-color: rgba(64, 224, 208, 0.2) !important;
+    color: #0b3b36 !important;
+}
