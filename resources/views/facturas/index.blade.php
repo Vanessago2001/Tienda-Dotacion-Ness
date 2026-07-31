@@ -15,7 +15,8 @@
         .estado-anulada { color: #b91c1c; font-weight: bold; }
         textarea { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
         button { padding: 8px 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-anular { background: #dc2626; color: white; margin-top: 6px; }
+        .btn-imprimir { display:inline-block; background:#2563eb; color:white; padding:8px 12px; border-radius:8px; text-decoration:none; }
+        .btn-anular { background: #dc2626; color: white; }
     </style>
 </head>
 <body>
@@ -84,38 +85,6 @@
                     <td>{{ $factura->fecha_emision->format('d/m/Y') }}</td>
                     <td>${{ number_format($factura->total, 0, ',', '.') }}</td>
                     <td>
-
-    {{-- Botón Imprimir --}}
-    <a
-        href="{{ route('facturas.imprimir', $factura->id) }}"
-        target="_blank"
-        style="display:inline-block; background:#2563eb; color:white; padding:8px 12px; border-radius:8px; text-decoration:none; margin-bottom:6px;"
-    >
-        Imprimir
-    </a>
-
-    @if($factura->estado === 'emitida')
-        @if(auth()->user()->can('anular-facturas'))
-            <form 
-                method="POST" 
-                action="{{ route('facturas.anular', $factura->id) }}"
-                onsubmit="return confirm('¿Seguro que deseas anular esta factura? Se generará una nota crédito y se reintegrará el inventario.')"
-            >
-                @csrf
-                @method('PUT')
-                <textarea name="motivo_anulacion" rows="2" placeholder="Motivo de anulación" required></textarea>
-                <button type="submit" class="btn-anular">Anular factura</button>
-            </form>
-        @else
-            <span style="color: #475569; font-size: 13px;">Sin permisos para anular</span>
-        @endif
-    @else
-        <strong>Nota crédito generada</strong><br>
-        <span style="color: #475569;">{{ $factura->notasCredito->first()?->numero_nota_credito }}</span>
-    @endif
-
-</td>
-                    <td>
                         @if($factura->estado === 'emitida')
                             <span class="estado-emitida">Emitida</span>
                         @else
@@ -132,25 +101,27 @@
                         @endforeach
                     </td>
                     <td>
-                        @if($factura->estado === 'emitida')
-                            @if(auth()->user()->can('anular-facturas'))
-                                <form 
-                                    method="POST" 
-                                    action="{{ route('facturas.anular', $factura->id) }}"
-                                    onsubmit="return confirm('¿Seguro que deseas anular esta factura? Se generará una nota crédito y se reintegrará el inventario.')"
-                                >
-                                    @csrf
-                                    @method('PUT')
-                                    <textarea name="motivo_anulacion" rows="2" placeholder="Motivo de anulación" required></textarea>
-                                    <button type="submit" class="btn-anular">Anular factura</button>
-                                </form>
+                        <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
+                            <a href="{{ route('facturas.imprimir', $factura->id) }}" target="_blank" class="btn-imprimir">Imprimir</a>
+
+                            @if($factura->estado === 'emitida')
+                                @if(auth()->user()->can('anular-facturas'))
+                                    <form method="POST" action="{{ route('facturas.anular', $factura->id) }}" onsubmit="return pedirMotivo(this)" style="margin:0;">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="motivo_anulacion" value="">
+                                        <button type="submit" class="btn-anular">Anular</button>
+                                    </form>
+                                @else
+                                    <span style="color: #475569; font-size: 13px;">Sin permisos para anular</span>
+                                @endif
                             @else
-                                <span style="color: #475569; font-size: 13px;">Sin permisos para anular</span>
+                                <div>
+                                    <strong>Nota crédito</strong><br>
+                                    <span style="color: #475569;">{{ $factura->notasCredito->first()?->numero_nota_credito }}</span>
+                                </div>
                             @endif
-                        @else
-                            <strong>Nota crédito generada</strong><br>
-                            <span style="color: #475569;">{{ $factura->notasCredito->first()?->numero_nota_credito }}</span>
-                        @endif
+                        </div>
                     </td>
                 </tr>
             @empty
@@ -161,6 +132,22 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function pedirMotivo(form) {
+        const motivo = prompt('Motivo de la anulación:');
+        if (motivo === null) return false;                 // Canceló
+        if (motivo.trim() === '') {
+            alert('Debe indicar el motivo de la anulación.');
+            return false;
+        }
+        if (!confirm('¿Seguro que deseas anular esta factura? Se generará una nota crédito y se reintegrará el inventario.')) {
+            return false;
+        }
+        form.querySelector('input[name="motivo_anulacion"]').value = motivo.trim();
+        return true;
+    }
+</script>
 
 </body>
 </html>
