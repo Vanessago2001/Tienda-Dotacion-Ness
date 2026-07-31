@@ -122,7 +122,7 @@
             autocomplete="off">
             <label for="buscarProducto">Producto</label>
             <input type="text" id="buscarProducto" placeholder="Escriba para buscar un producto..." autocomplete="off" oninput="filtrarProductos()">
-            <div id="listaProductos" style="max-height:260px; overflow-y:auto; border:1px solid #b7f3ec; border-radius:12px; margin-top:8px; background:white;">
+            <div id="listaProductos" style="display:none; max-height:260px; overflow-y:auto; border:1px solid #b7f3ec; border-radius:12px; margin-top:8px; background:white;">
                 @foreach($productos as $producto)
                     <div class="item-producto"
                          data-id="{{ $producto->id }}"
@@ -297,10 +297,23 @@
     }
 
     function filtrarProductos() {
-        const q = document.getElementById('buscarProducto').value.toLowerCase();
+        const q = document.getElementById('buscarProducto').value.toLowerCase().trim();
+        const lista = document.getElementById('listaProductos');
+
+        // Sin texto: no mostrar ningún producto
+        if (q === '') {
+            lista.style.display = 'none';
+            return;
+        }
+
+        let hayCoincidencias = false;
         document.querySelectorAll('#listaProductos .item-producto').forEach(item => {
-            item.style.display = item.dataset.buscar.includes(q) ? 'flex' : 'none';
+            const coincide = item.dataset.buscar.includes(q);
+            item.style.display = coincide ? 'flex' : 'none';
+            if (coincide) hayCoincidencias = true;
         });
+
+        lista.style.display = hayCoincidencias ? 'block' : 'none';
     }
 
     function seleccionarProducto(el) {
@@ -312,9 +325,9 @@
             foto: el.dataset.foto
         };
 
-        // Resaltar el producto seleccionado en la lista
-        document.querySelectorAll('#listaProductos .item-producto').forEach(i => i.style.background = '');
-        el.style.background = '#ccfbf1';
+        // Poner el nombre en el buscador y cerrar la lista
+        document.getElementById('buscarProducto').value = productoActual.nombre;
+        document.getElementById('listaProductos').style.display = 'none';
 
         const preview = document.getElementById('previewProducto');
         document.getElementById('previewProductoImg').src = productoActual.foto;
