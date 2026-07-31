@@ -79,10 +79,17 @@
 <div class="ticket">
 
     <div class="center">
-        <div class="bold">MI NEGOCIO POS</div>
-        <div>NIT: 900000000-1</div>
-        <div>Dirección: Calle 123 # 45-67</div>
-        <div>Tel: 300 000 0000</div>
+        @if($company && $company->logo)
+            <div><img src="{{ $company->logo_url }}" alt="Logo" style="max-width:60mm; max-height:25mm; object-fit:contain;"></div>
+        @endif
+        <div class="bold">{{ $company->name ?? 'MI NEGOCIO POS' }}</div>
+        @if($company)
+            @if($company->nit)<div>NIT: {{ $company->nit }}</div>@endif
+            @if($company->address)<div>Dirección: {{ $company->address }}</div>@endif
+            @if($company->city)<div>{{ $company->city }}</div>@endif
+            @if($company->phone)<div>Tel: {{ $company->phone }}</div>@endif
+            @if($company->email)<div>{{ $company->email }}</div>@endif
+        @endif
     </div>
 
     <div class="line"></div>

@@ -21,7 +21,10 @@ class FacturaController extends Controller
             'detalles.producto'
         ]);
 
-        return view('facturas.imprimir', compact('factura'));
+        // Datos de la empresa (una sola empresa) para el encabezado de la factura.
+        $company = \App\Models\Company::first();
+
+        return view('facturas.imprimir', compact('factura', 'company'));
     }
 
     public function index(Request $request)
