@@ -7,17 +7,6 @@
 
     <div class="py-12 min-h-screen" style="background: linear-gradient(135deg, #0d3f3c 0%, #1c7a74 45%, #40E0D0 100%);">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
-            
-            <!-- Navbar -->
-            <div style="padding: 0 24px;">
-                <x-header-navbar 
-                    title="Dashboard Principal" 
-                    :navLinks="[
-                    ]"
-                    primaryAction="Ir a Caja POS"
-                    :primaryActionUrl="route('caja.productos.index')"
-                />
-            </div>
 
             <!-- Tarjeta de Bienvenida -->
             <div class="overflow-hidden shadow-sm sm:rounded-2xl border border-slate-200" style="background: rgba(255,255,255,0.97);">

@@ -102,10 +102,9 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">@yield('titulo', 'Panel')</div>
+    <nav class="navbar" style="position:relative; z-index:3000;">
+        <div class="logo" style="display:flex; align-items:center; gap:16px;"><x-menu-boton /> @yield('titulo', 'Panel')</div>
         <div class="nav-links">
-            <x-menu-boton />
             @yield('nav')
         </div>
     </nav>

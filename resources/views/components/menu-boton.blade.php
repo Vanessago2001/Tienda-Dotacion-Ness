@@ -37,7 +37,7 @@
 
 @once
 <style>
-    .menu-hover { position: relative; display: inline-block; }
+    .menu-hover { position: relative; display: inline-block; z-index: 100000; }
     .menu-btn {
         background: linear-gradient(135deg,#14b8a6,#2dd4bf); color:#fff; border:none;
         padding:12px 22px; border-radius:14px; font-weight:700; font-size:15px; cursor:pointer;
@@ -45,7 +45,7 @@
     }
     .menu-btn:hover { transform:translateY(-2px); }
     .menu-panel {
-        position:absolute; top:100%; left:0; margin-top:12px; z-index:9999; display:none;
+        position:absolute; top:100%; left:0; margin-top:12px; z-index:100000; display:none;
         background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
         border:1px solid #ccfbf1; border-radius:22px; box-shadow:0 20px 40px rgba(0,0,0,.18);
         padding:16px; grid-template-columns: repeat(3, minmax(150px,1fr)); gap:10px;

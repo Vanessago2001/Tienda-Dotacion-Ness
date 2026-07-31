@@ -66,10 +66,9 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">🧾 Historial de Ventas</div>
+    <nav class="navbar" style="position:relative; z-index:3000;">
+        <div class="logo" style="display:flex; align-items:center; gap:16px;"><x-menu-boton /> 🧾 Historial de Ventas</div>
         <div class="nav-links">
-            <x-menu-boton />
             <a href="{{ route('caja.productos.index') }}" class="btn-modulo">Caja</a>
             <a href="{{ route('historial-ventas.index') }}" class="btn-modulo">Historial</a>
         </div>

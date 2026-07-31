@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+<nav x-data="{ open: false }" style="position:relative; z-index:3000;" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <!-- Primary Navigation Menu -->
     <div class="bg-white/95 backdrop-blur rounded-3xl shadow-lg px-6">
         <div class="flex justify-between items-center min-h-16 py-3 gap-4 flex-wrap">

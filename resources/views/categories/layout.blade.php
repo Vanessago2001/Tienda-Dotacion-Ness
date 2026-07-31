@@ -176,15 +176,13 @@
 </head>
 <body>
 
-    <nav class="navbar">
+    <nav class="navbar" style="position:relative; z-index:3000;">
 
-        <div class="logo">
+        <div class="logo" style="display:flex; align-items:center; gap:16px;"><x-menu-boton /> 
             🏷️ Gestión de Categorías
         </div>
 
         <div class="nav-links">
-
-            <x-menu-boton />
 
             <a href="{{ route('categories.index') }}"
                class="btn-modulo">
