@@ -22,6 +22,12 @@ class Product extends Model
 ];
 
     /**
+     * Atributos calculados que se incluyen al convertir el modelo a array/JSON.
+     * Así el endpoint /buscar-barcode devuelve "photo_url" listo para el <img>.
+     */
+    protected $appends = ['photo_url'];
+
+    /**
      * URL lista para mostrar la foto del producto.
      * - Si es una foto subida (ruta en storage) devuelve asset('storage/...').
      * - Si es una URL antigua (http...) la devuelve tal cual.
