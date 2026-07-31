@@ -26,7 +26,17 @@
         <input type="text" name="barcode" value="{{ old('barcode', $product->barcode) }}">
 
         <label>Proveedor</label>
-        <input type="text" name="supplier" value="{{ old('supplier', $product->supplier) }}">
+        @php $supplierActual = old('supplier', $product->supplier); @endphp
+        <select name="supplier" id="supplier" onchange="if(this.value==='__new__'){ window.location='{{ route('suppliers.create') }}'; }">
+            <option value="">-- Seleccione un proveedor --</option>
+            @foreach ($suppliers as $sup)
+                <option value="{{ $sup->company }}" {{ $supplierActual == $sup->company ? 'selected' : '' }}>{{ $sup->company }}</option>
+            @endforeach
+            @if($supplierActual && !$suppliers->contains('company', $supplierActual))
+                <option value="{{ $supplierActual }}" selected>{{ $supplierActual }} (actual)</option>
+            @endif
+            <option value="__new__">➕ Crear nuevo proveedor…</option>
+        </select>
 
         <div style="display: flex; gap: 15px;">
             <div style="flex: 1;">

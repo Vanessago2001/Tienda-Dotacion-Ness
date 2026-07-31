@@ -21,7 +21,13 @@
         placeholder="Escanee el código">
 
         <label>Proveedor</label>
-        <input type="text" name="supplier" value="{{ old('supplier') }}">
+        <select name="supplier" id="supplier" onchange="if(this.value==='__new__'){ window.location='{{ route('suppliers.create') }}'; }">
+            <option value="">-- Seleccione un proveedor --</option>
+            @foreach ($suppliers as $sup)
+                <option value="{{ $sup->company }}" {{ old('supplier') == $sup->company ? 'selected' : '' }}>{{ $sup->company }}</option>
+            @endforeach
+            <option value="__new__">➕ Crear nuevo proveedor…</option>
+        </select>
 
         <div style="display: flex; gap: 10px;">
             <div style="flex: 1;">

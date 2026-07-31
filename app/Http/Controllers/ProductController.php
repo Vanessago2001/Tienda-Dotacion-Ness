@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +17,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        $suppliers = Supplier::orderBy('company')->get();
+        return view('products.create', compact('suppliers'));
     }
 
     public function store(Request $request)
@@ -59,7 +61,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $suppliers = Supplier::orderBy('company')->get();
+        return view('products.edit', compact('product', 'suppliers'));
     }
 
     public function update(Request $request, Product $product)
