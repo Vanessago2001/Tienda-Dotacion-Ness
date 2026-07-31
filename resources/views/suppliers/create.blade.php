@@ -2,7 +2,7 @@
 @section('title', 'Registrar Proveedor')
 @section('content')
     <h1>Nuevo Proveedor</h1>
-    <form action="{{ route('suppliers.store') }}" method="POST">
+    <form action="{{ route('suppliers.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label>Nombre del Contacto</label>
         <input type="text" name="name" value="{{ old('name') }}">
@@ -22,8 +22,8 @@
         <label>Producto que suministra</label>
         <input type="text" name="product" value="{{ old('product') }}">
 
-        <label>URL Foto/Logo</label>
-        <input type="text" name="photo" value="{{ old('photo') }}">
+        <label>Foto/Logo</label>
+        <input type="file" name="photo" accept="image/*">
 
         <button type="submit">Guardar Proveedor</button>
     </form>

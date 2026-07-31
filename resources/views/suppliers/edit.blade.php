@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('suppliers.update', $supplier) }}" method="POST">
+    <form action="{{ route('suppliers.update', $supplier) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -47,8 +47,11 @@
             <label>Producto Suministrado</label>
             <input type="text" name="product" value="{{ old('product', $supplier->product) }}">
 
-            <label>URL de Foto/Logo</label>
-            <input type="text" name="photo" value="{{ old('photo', $supplier->photo) }}">
+            <label>Foto/Logo</label>
+            @if($supplier->photo)
+                <img src="{{ Str::startsWith($supplier->photo, ['http://', 'https://']) ? $supplier->photo : asset('storage/' . $supplier->photo) }}" alt="Logo actual" style="display:block; width:120px; height:120px; object-fit:cover; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
+            @endif
+            <input type="file" name="photo" accept="image/*">
         </fieldset>
 
         <div style="margin-top: 10px;">

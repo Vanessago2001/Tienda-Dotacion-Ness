@@ -7,7 +7,7 @@
 
     <div style="display: flex; gap: 30px; align-items: start; line-height: 1.8;">
         <div style="flex: 1; max-width: 250px;">
-            <img src="{{ $supplier->photo }}" alt="Logo {{ $supplier->company }}" style="width: 100%; border-radius: 10px; border: 1px solid #ddd; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+            <img src="{{ $supplier->photo ? (Str::startsWith($supplier->photo, ['http://', 'https://']) ? $supplier->photo : asset('storage/' . $supplier->photo)) : asset('images/logo_happy_store.png') }}" alt="Logo {{ $supplier->company }}" style="width: 100%; border-radius: 10px; border: 1px solid #ddd; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
         </div>
 
         <div style="flex: 2;">

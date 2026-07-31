@@ -28,10 +28,16 @@ class SupplierController extends Controller
             'company_phone' => 'required|numeric',
             'product'       => 'required',
             'company'       => 'required',
-            'photo'         => 'required|url'
+            'photo'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        Supplier::create($request->all());
+        $data = $request->except('photo');
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('suppliers', 'public');
+        }
+
+        Supplier::create($data);
 
         return redirect()->route('suppliers.index')
             ->with('success', 'Proveedor registrado correctamente.');
@@ -57,10 +63,16 @@ class SupplierController extends Controller
             'company_phone' => 'required|numeric',
             'product'       => 'required',
             'company'       => 'required',
-            'photo'         => 'required|url'
+            'photo'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        $supplier->update($request->all());
+        $data = $request->except('photo');
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('suppliers', 'public');
+        }
+
+        $supplier->update($data);
 
         return redirect()->route('suppliers.index')
             ->with('success', 'Proveedor actualizado correctamente.');
