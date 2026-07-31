@@ -29,4 +29,10 @@ class VentaDetalle extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    // Alias en español, usado por el flujo de facturas (detalles.producto)
+    public function producto(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
