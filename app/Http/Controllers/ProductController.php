@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\MovimientoInventario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -48,7 +49,19 @@ class ProductController extends Controller
         $data = $request->except('photo');
         $data['photo'] = $request->file('photo')->store('products', 'public');
 
-        Product::create($data);
+        $product = Product::create($data);
+
+        // Registra el stock inicial como una entrada de inventario
+        if ((int) $product->stock > 0) {
+            MovimientoInventario::registrar(
+                $product->id,
+                'entrada',
+                (int) $product->stock,
+                0,
+                (int) $product->stock,
+                'Stock inicial (alta de producto)'
+            );
+        }
 
         return redirect()->route('products.index')
             ->with('success', 'Producto registrado con éxito.');
@@ -92,7 +105,23 @@ class ProductController extends Controller
             $data['photo'] = $request->file('photo')->store('products', 'public');
         }
 
+        $stockAnterior = (int) $product->stock;
+
         $product->update($data);
+
+        // Registra el cambio de stock como movimiento de inventario
+        $stockNuevo = (int) $product->stock;
+        if ($stockNuevo !== $stockAnterior) {
+            $diferencia = $stockNuevo - $stockAnterior;
+            MovimientoInventario::registrar(
+                $product->id,
+                $diferencia > 0 ? 'entrada' : 'salida',
+                abs($diferencia),
+                $stockAnterior,
+                $stockNuevo,
+                'Ajuste desde edición de producto'
+            );
+        }
 
         return redirect()->route('products.index')
             ->with('success', 'Producto actualizado correctamente.');
