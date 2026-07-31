@@ -2,7 +2,7 @@
 @section('content')
     <h1>Perfil del Cliente</h1>
     <div style="display: flex; gap: 40px; margin-top: 20px;">
-        <img src="{{ $customer->photo }}" width="200" style="border-radius: 15px; border: 4px solid #eee;">
+        <img src="{{ $customer->photo ? asset('storage/' . $customer->photo) : asset('images/logo_happy_store.png') }}" width="200" style="border-radius: 15px; border: 4px solid #eee;">
         <div>
             <h2>{{ $customer->name }}</h2>
             <p><strong>{{ $customer->document_type }}:</strong> {{ $customer->document }}</p>

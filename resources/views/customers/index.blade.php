@@ -143,7 +143,7 @@
             @foreach ($customers as $customer)
 
             <tr>
-                <td><img src="{{ $customer->photo }}" width="45" height="45" style="border-radius: 50%; object-fit: cover;"></td>
+                <td><img src="{{ $customer->photo ? asset('storage/' . $customer->photo) : asset('images/logo_happy_store.png') }}" width="45" height="45" style="border-radius: 50%; object-fit: cover;"></td>
                 <td>{{ $customer->name }}</td>
                 <td>{{ $customer->document_type }}: {{ $customer->document }}</td>
                 <td>{{ $customer->email }}</td>
