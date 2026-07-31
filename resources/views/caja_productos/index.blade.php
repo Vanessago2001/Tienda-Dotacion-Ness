@@ -120,19 +120,27 @@
             id="barcodeScanner"
             placeholder="Escanee aquí"
             autocomplete="off">
-            <label for="productoSelect">Producto</label>
-            <select id="productoSelect" onchange="mostrarPreviewProducto()">
-                <option value="">Seleccione un producto</option>
+            <label for="buscarProducto">Producto</label>
+            <input type="text" id="buscarProducto" placeholder="Escriba para buscar un producto..." autocomplete="off" oninput="filtrarProductos()">
+            <div id="listaProductos" style="max-height:260px; overflow-y:auto; border:1px solid #b7f3ec; border-radius:12px; margin-top:8px; background:white;">
                 @foreach($productos as $producto)
-                    <option value="{{ $producto->id }}"
-                            data-nombre="{{ $producto->name }}"
-                            data-precio="{{ $producto->price }}"
-                            data-stock="{{ $producto->stock }}"
-                            data-foto="{{ $producto->photo_url }}">
-                        {{ $producto->name }} - ${{ number_format($producto->price, 0, ',', '.') }} | Stock: {{ $producto->stock }}
-                    </option>
+                    <div class="item-producto"
+                         data-id="{{ $producto->id }}"
+                         data-nombre="{{ $producto->name }}"
+                         data-precio="{{ $producto->price }}"
+                         data-stock="{{ $producto->stock }}"
+                         data-foto="{{ $producto->photo_url }}"
+                         data-buscar="{{ \Illuminate\Support\Str::lower($producto->name) }}"
+                         onclick="seleccionarProducto(this)"
+                         style="display:flex; align-items:center; gap:10px; padding:8px 10px; cursor:pointer; border-bottom:1px solid #f0fdfa;">
+                        <img src="{{ $producto->photo_url }}" alt="{{ $producto->name }}" style="width:45px; height:45px; object-fit:cover; border-radius:8px; border:1px solid #ddd;">
+                        <div style="flex:1;">
+                            <div style="font-weight:600; color:#0f172a;">{{ $producto->name }}</div>
+                            <div style="font-size:12px; color:#0f766e;">${{ number_format($producto->price, 0, ',', '.') }} | Stock: {{ $producto->stock }}</div>
+                        </div>
+                    </div>
                 @endforeach
-            </select>
+            </div>
 
             {{-- Vista previa del producto seleccionado (con su foto) --}}
             <div id="previewProducto" style="display:none; align-items:center; gap:12px; margin:10px 0; padding:10px; background:#f0fdfa; border:1px solid #ccfbf1; border-radius:12px;">
@@ -252,7 +260,7 @@
 
 <script>
     let productosVenta = [];
-    const productoSelect = document.getElementById('productoSelect');
+    let productoActual = null;
     const tablaProductosBody = document.querySelector('#tablaProductos tbody');
     const totalTexto = document.getElementById('totalTexto');
     const cambioTexto = document.getElementById('cambioTexto');
@@ -288,42 +296,65 @@
         }
     }
 
-    function mostrarPreviewProducto() {
-        const option = productoSelect.options[productoSelect.selectedIndex];
+    function filtrarProductos() {
+        const q = document.getElementById('buscarProducto').value.toLowerCase();
+        document.querySelectorAll('#listaProductos .item-producto').forEach(item => {
+            item.style.display = item.dataset.buscar.includes(q) ? 'flex' : 'none';
+        });
+    }
+
+    function seleccionarProducto(el) {
+        productoActual = {
+            id: el.dataset.id,
+            nombre: el.dataset.nombre,
+            precio: parseFloat(el.dataset.precio),
+            stock: parseInt(el.dataset.stock),
+            foto: el.dataset.foto
+        };
+
+        // Resaltar el producto seleccionado en la lista
+        document.querySelectorAll('#listaProductos .item-producto').forEach(i => i.style.background = '');
+        el.style.background = '#ccfbf1';
+
         const preview = document.getElementById('previewProducto');
-
-        if (!option.value) {
-            preview.style.display = 'none';
-            return;
-        }
-
-        document.getElementById('previewProductoImg').src = option.dataset.foto;
-        document.getElementById('previewProductoNombre').textContent = option.dataset.nombre;
+        document.getElementById('previewProductoImg').src = productoActual.foto;
+        document.getElementById('previewProductoNombre').textContent = productoActual.nombre;
         document.getElementById('previewProductoPrecio').textContent =
-            '$' + formatoMoneda(parseFloat(option.dataset.precio)) + ' | Stock: ' + option.dataset.stock;
+            '$' + formatoMoneda(productoActual.precio) + ' | Stock: ' + productoActual.stock;
         preview.style.display = 'flex';
     }
 
     function agregarProducto() {
-        const option = productoSelect.options[productoSelect.selectedIndex];
-        if (!option.value) { alert('Seleccione un producto.'); return; }
+        if (!productoActual) { alert('Seleccione un producto de la lista.'); return; }
 
-        const productoId = option.value;
-        const existente = productosVenta.find(item => item.product_id === productoId);
+        const existente = productosVenta.find(item => item.product_id === productoActual.id);
 
         if (existente) {
             if (existente.cantidad < existente.stock) existente.cantidad++;
             else alert('No hay más stock disponible para este producto.');
         } else {
             productosVenta.push({
-                product_id: productoId,
-                nombre: option.dataset.nombre,
-                precio: parseFloat(option.dataset.precio),
-                stock: parseInt(option.dataset.stock),
-                foto: option.dataset.foto,
+                product_id: productoActual.id,
+                nombre: productoActual.nombre,
+                precio: productoActual.precio,
+                stock: productoActual.stock,
+                foto: productoActual.foto,
                 cantidad: 1
             });
         }
+        renderizarTabla();
+    }
+
+    function cambiarCantidad(productoId, valor) {
+        const item = productosVenta.find(item => item.product_id === productoId);
+        if (!item) return;
+        let cant = parseInt(valor);
+        if (isNaN(cant) || cant < 1) cant = 1;
+        if (cant > item.stock) {
+            alert('No hay más stock disponible. Máximo: ' + item.stock);
+            cant = item.stock;
+        }
+        item.cantidad = cant;
         renderizarTabla();
     }
 
@@ -356,9 +387,10 @@
                 <td>$${formatoMoneda(item.precio)}</td>
                 <td>
                     <button type="button" class="btn-cantidad" onclick="disminuirCantidad('${item.product_id}')">-</button>
-                    <span style="margin: 0 8px; font-weight: bold;">${item.cantidad}</span>
+                    <input type="number" name="productos[${index}][cantidad]" min="1" max="${item.stock}" value="${item.cantidad}"
+                           onchange="cambiarCantidad('${item.product_id}', this.value)"
+                           style="width:60px; text-align:center; margin:0 6px; padding:6px; border:1px solid #b7f3ec; border-radius:8px;">
                     <button type="button" class="btn-cantidad" onclick="aumentarCantidad('${item.product_id}')">+</button>
-                    <input type="hidden" name="productos[${index}][cantidad]" value="${item.cantidad}">
                 </td>
                 <td style="color:#0f766e; font-weight:bold;">$${formatoMoneda(subtotal)}</td>
                 <td><button type="button" class="btn-eliminar" onclick="eliminarProducto('${item.product_id}')">X</button></td>
@@ -393,17 +425,6 @@
 scanner.addEventListener("keypress",function(e){
 
     if(e.key!="Enter") return;
-
-    e.preventDefault();
-
-    buscarCodigo(scanner.value);
-
-});
-    const scanner = document.getElementById("barcodeScanner");
-
-scanner.addEventListener("keypress", function(e) {
-
-    if (e.key != "Enter") return;
 
     e.preventDefault();
 
@@ -446,6 +467,7 @@ function buscarCodigo(codigo) {
                 nombre: producto.name,
                 precio: parseFloat(producto.price),
                 stock: parseInt(producto.stock),
+                foto: producto.photo_url || '',
                 cantidad: 1
 
             });
