@@ -41,15 +41,15 @@
     }
 
     .table-modern thead{
-        background:#faf5ff;
+        background:#f0fdfa;
     }
 
     .table-modern th{
         padding:18px;
         text-align:left;
-        color:#6b21a8;
+        color:#0f766e;
         font-weight:700;
-        border-bottom:1px solid #e9d5ff;
+        border-bottom:1px solid #ccfbf1;
     }
 
     .table-modern td{
@@ -58,7 +58,7 @@
     }
 
     .table-modern tbody tr:hover{
-        background:#faf5ff;
+        background:#f0fdfa;
         transition:.3s;
     }
 
@@ -91,12 +91,12 @@
     }
 
     .btn-view{
-        background:#e0e7ff;
-        color:#4338ca;
+        background:#e6fbf8;
+        color:#0d3f3c;
     }
 
     .btn-edit{
-        background:#ede9fe;
+        background:#ccfbf1;
         color:#0f766e;
     }
 

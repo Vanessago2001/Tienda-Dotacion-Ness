@@ -64,8 +64,8 @@
         .btn:hover{ transform:translateY(-2px); }
         .btn-primary{ background:linear-gradient(135deg,#14b8a6,#2dd4bf); color:#fff; }
         .btn-secondary{ background:#f1f5f9; color:#475569; }
-        .btn-ver{ background:#e0e7ff; color:#4338ca; }
-        .btn-edit{ background:#ede9fe; color:#6d28d9; }
+        .btn-ver{ background:#e6fbf8; color:#0d3f3c; }
+        .btn-edit{ background:#ccfbf1; color:#0f766e; }
         .btn-perm{ background:#ccfbf1; color:#0f766e; }
         .btn-on{ background:#dcfce7; color:#166534; }
         .btn-off{ background:#fee2e2; color:#991b1b; }

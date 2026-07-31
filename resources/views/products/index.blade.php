@@ -53,7 +53,7 @@
         color:#0f766e;
         font-weight:700;
         text-align:left;
-        border-bottom:1px solid #e9d5ff;
+        border-bottom:1px solid #ccfbf1;
     }
 
     .table-modern td{
@@ -71,7 +71,7 @@
         height:60px;
         border-radius:12px;
         object-fit:cover;
-        border:2px solid #ede9fe;
+        border:2px solid #ccfbf1;
     }
 
     .badge-stock{

@@ -16,10 +16,10 @@
         .card p { margin: 10px 0 0; font-size: 32px; font-weight: 700; color: #ffffff; }
         
         .contenedor { display: grid; grid-template-columns: 35% 63%; gap: 2%; }
-        .panel h2 { font-size: 20px; color: #1e293b; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #ede9fe; padding-bottom: 10px; }
+        .panel h2 { font-size: 20px; color: #1e293b; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #ccfbf1; padding-bottom: 10px; }
         
         label { display: block; margin-top: 15px; font-weight: 600; font-size: 14px; color: #475569; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd6fe; border-radius: 12px; box-sizing: border-box; background: white; transition: 0.3s; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #b7f3ec; border-radius: 12px; box-sizing: border-box; background: white; transition: 0.3s; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #14b8a6; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15); }
         
         button { padding: 12px 18px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 0.3s; }
@@ -44,8 +44,8 @@
 
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 14px 10px; border-bottom: 1px solid #f1f5f9; text-align: left; font-size: 14px; }
-        th { background: #faf5ff; color: #6b21a8; font-weight: 700; border-radius: 8px; }
-        tbody tr:hover { background: #faf5ff; transition: 0.3s; }
+        th { background: #f0fdfa; color: #0f766e; font-weight: 700; border-radius: 8px; }
+        tbody tr:hover { background: #f0fdfa; transition: 0.3s; }
         
         .alert-success { background: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #22c55e; font-weight: 600; }
         .alert-error { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 15px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #ef4444; font-weight: 600; }

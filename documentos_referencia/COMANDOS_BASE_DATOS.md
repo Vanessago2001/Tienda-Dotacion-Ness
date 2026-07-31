@@ -119,24 +119,30 @@ php artisan storage:link
 ## 6. Crear usuarios de prueba (uno por rol)
 
 Los roles del proyecto son: **admin, vendedor, contador, visitante, cajero**.
-Entra a Tinker:
+
+La forma recomendada es con el **seeder** (evita el Tinker, que en PowerShell/Windows
+falla al pegar varias líneas):
 
 ```bash
-php artisan tinker
+php artisan db:seed --class=UserSeeder
 ```
 
-Y pega:
+Esto crea (o actualiza) 5 usuarios, **todos activos**, con contraseña `12345678`:
 
-```php
-\App\Models\User::create(['name'=>'Administrador','email'=>'admin@test.com','password'=>bcrypt('12345678'),'role'=>'admin']);
-\App\Models\User::create(['name'=>'Vendedor','email'=>'vendedor@test.com','password'=>bcrypt('12345678'),'role'=>'vendedor']);
-\App\Models\User::create(['name'=>'Contador','email'=>'contador@test.com','password'=>bcrypt('12345678'),'role'=>'contador']);
-\App\Models\User::create(['name'=>'Cajero','email'=>'cajero@test.com','password'=>bcrypt('12345678'),'role'=>'cajero']);
-\App\Models\User::create(['name'=>'Visitante','email'=>'visitante@test.com','password'=>bcrypt('12345678'),'role'=>'visitante']);
-exit
-```
+| Correo | Rol |
+|--------|-----|
+| admin@test.com | admin |
+| vendedor@test.com | vendedor |
+| contador@test.com | contador |
+| cajero@test.com | cajero |
+| visitante@test.com | visitante |
 
-Credenciales: correo de arriba + contraseña `12345678`.
+> El `UserSeeder` es **idempotente**: puedes correrlo varias veces sin duplicar, y
+> además **reactiva** cualquiera de estos usuarios que estuviera inactivo.
+>
+> **Importante:** después de crear los usuarios, corre
+> `php artisan db:seed --class=PermissionSeeder` para que reciban sus permisos
+> según el rol (ver nota del "ORDEN MAESTRO").
 
 ---
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -27,10 +28,13 @@ class CompanyController extends Controller
             'phone'   => 'required|numeric',
             'email'   => 'required|email|unique:companies,email',
             'city'    => 'required',
-            'logo'    => 'required|url'
+            'logo'    => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        Company::create($request->all());
+        $data = $request->except('logo');
+        $data['logo'] = $request->file('logo')->store('companies', 'public');
+
+        Company::create($data);
 
         return redirect()->route('companies.index')
             ->with('success', 'Empresa registrada correctamente.');
@@ -55,10 +59,22 @@ class CompanyController extends Controller
             'phone'   => 'required|numeric',
             'email'   => 'required|email|unique:companies,email,' . $company->id,
             'city'    => 'required',
-            'logo'    => 'required|url'
+            'logo'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
 
-        $company->update($request->all());
+        $data = $request->except('logo');
+
+        if ($request->hasFile('logo')) {
+            if ($company->logo
+                && !str_starts_with($company->logo, 'http')
+                && Storage::disk('public')->exists($company->logo)) {
+                Storage::disk('public')->delete($company->logo);
+            }
+
+            $data['logo'] = $request->file('logo')->store('companies', 'public');
+        }
+
+        $company->update($data);
 
         return redirect()->route('companies.index')
             ->with('success', 'Información de la empresa actualizada.');

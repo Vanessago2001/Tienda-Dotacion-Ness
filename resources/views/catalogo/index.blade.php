@@ -15,12 +15,12 @@
 
             @auth
                 <a href="{{ route('dashboard') }}"
-                   class="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm">
+                   class="px-4 py-2 bg-teal-600 text-white rounded-md text-sm">
                     Ir al panel
                 </a>
             @else
                 <a href="{{ route('login') }}"
-                   class="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm">
+                   class="px-4 py-2 bg-teal-600 text-white rounded-md text-sm">
                     Iniciar sesión
                 </a>
             @endauth
@@ -40,7 +40,7 @@
                     <div class="p-4 flex flex-col flex-1">
                         <h2 class="font-semibold text-gray-800">{{ $product->name }}</h2>
                         <p class="text-sm text-gray-500">{{ $product->category }}</p>
-                        <p class="mt-2 text-lg font-bold text-indigo-600">
+                        <p class="mt-2 text-lg font-bold text-teal-600">
                             ${{ number_format($product->price, 0) }}
                         </p>
                     </div>

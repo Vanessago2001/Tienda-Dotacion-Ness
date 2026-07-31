@@ -115,7 +115,7 @@
         textarea{
             width:100%;
             padding:12px;
-            border:1px solid #ddd6fe;
+            border:1px solid #b7f3ec;
             border-radius:12px;
             margin-top:8px;
             margin-bottom:16px;

@@ -14,7 +14,7 @@
         .card p { margin: 10px 0 0; font-size: 32px; font-weight: 700; color: #0f766e; }
         
         .contenedor { display: grid; grid-template-columns: 42% 56%; gap: 2%; }
-        .panel h2 { font-size: 20px; color: #1e293b; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #ede9fe; padding-bottom: 10px; }
+        .panel h2 { font-size: 20px; color: #1e293b; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #ccfbf1; padding-bottom: 10px; }
         
         label { display: block; margin-top: 15px; font-weight: 600; font-size: 14px; color: #475569; }
         input, select { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #b7f3ec; border-radius: 12px; box-sizing: border-box; background: white; transition: 0.3s; }

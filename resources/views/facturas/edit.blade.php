@@ -23,7 +23,7 @@
 
         <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: bold; color: #475569; margin-bottom: 8px;">Fecha de Emisión</label>
-            <input type="date" name="fecha_emision" value="{{ old('fecha_emision', $factura->fecha_emision->format('Y-m-d')) }}" required style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd6fe;">
+            <input type="date" name="fecha_emision" value="{{ old('fecha_emision', $factura->fecha_emision->format('Y-m-d')) }}" required style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #b7f3ec;">
             @error('fecha_emision')
                 <span style="color: #ef4444; font-size: 13px; margin-top: 5px; display: block;">{{ $message }}</span>
             @enderror

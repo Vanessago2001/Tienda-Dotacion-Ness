@@ -435,7 +435,7 @@
                                 {{ $totalCustomers }}
                             ],
                             backgroundColor: [
-                                'rgba(99, 102, 241, 0.8)', // indigo-500
+                                'rgba(99, 102, 241, 0.8)', // teal-500
                                 'rgba(16, 185, 129, 0.8)', // emerald-500
                                 'rgba(245, 158, 11, 0.8)',  // amber-500
                                 'rgba(244, 63, 94, 0.8)'    // rose-500

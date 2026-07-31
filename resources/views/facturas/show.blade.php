@@ -36,12 +36,12 @@
 
     <h3 style="color: #1e293b; font-size: 20px; margin-bottom: 15px;">Productos</h3>
     <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,.03);">
-        <thead style="background: #faf5ff;">
+        <thead style="background: #f0fdfa;">
             <tr>
-                <th style="padding: 15px; text-align: left; color: #6b21a8;">Producto</th>
-                <th style="padding: 15px; text-align: center; color: #6b21a8;">Cantidad</th>
-                <th style="padding: 15px; text-align: right; color: #6b21a8;">Precio Unit.</th>
-                <th style="padding: 15px; text-align: right; color: #6b21a8;">Subtotal</th>
+                <th style="padding: 15px; text-align: left; color: #0f766e;">Producto</th>
+                <th style="padding: 15px; text-align: center; color: #0f766e;">Cantidad</th>
+                <th style="padding: 15px; text-align: right; color: #0f766e;">Precio Unit.</th>
+                <th style="padding: 15px; text-align: right; color: #0f766e;">Subtotal</th>
             </tr>
         </thead>
         <tbody>

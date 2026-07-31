@@ -61,12 +61,12 @@
         }
 
         .btn-dashboard{
-            background:#e0e7ff;
-            color:#4338ca;
+            background:#e6fbf8;
+            color:#0d3f3c;
         }
 
         .btn-modulo{
-            background:#ede9fe;
+            background:#ccfbf1;
             color:#0f766e;
         }
 
@@ -114,7 +114,7 @@
         textarea{
             width:100%;
             padding:12px;
-            border:1px solid #ddd6fe;
+            border:1px solid #b7f3ec;
             border-radius:12px;
             margin-top:8px;
             margin-bottom:16px;

@@ -29,7 +29,7 @@
 
             <x-text-input
                 id="email"
-                class="block mt-2 w-full rounded-xl border-purple-200 bg-white/50 text-slate-800 transition-shadow shadow-sm custom-input"
+                class="block mt-2 w-full rounded-xl border-teal-200 bg-white/50 text-slate-800 transition-shadow shadow-sm custom-input"
                 type="email"
                 name="email"
                 :value="old('email')"
@@ -54,7 +54,7 @@
 
             <x-text-input
                 id="password"
-                class="block mt-2 w-full rounded-xl border-purple-200 bg-white/50 text-slate-800 transition-shadow shadow-sm custom-input"
+                class="block mt-2 w-full rounded-xl border-teal-200 bg-white/50 text-slate-800 transition-shadow shadow-sm custom-input"
                 type="password"
                 name="password"
                 required

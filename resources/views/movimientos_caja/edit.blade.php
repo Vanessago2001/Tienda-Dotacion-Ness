@@ -10,10 +10,10 @@
         h1 { margin: 0; color: #1e293b; font-size: 28px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
         .panel { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-radius: 24px; padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); width: 100%; max-width: 600px; }
-        h2 { font-size: 20px; color: #1e293b; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #ede9fe; padding-bottom: 10px; }
+        h2 { font-size: 20px; color: #1e293b; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #ccfbf1; padding-bottom: 10px; }
 
         label { display: block; margin-top: 15px; font-weight: 600; font-size: 14px; color: #475569; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd6fe; border-radius: 12px; box-sizing: border-box; background: white; transition: 0.3s; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #b7f3ec; border-radius: 12px; box-sizing: border-box; background: white; transition: 0.3s; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #14b8a6; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15); }
 
         button { padding: 12px 20px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
@@ -21,8 +21,8 @@
         .btn-principal { width: 100%; margin-top: 25px; background: linear-gradient(135deg, #14b8a6, #2dd4bf); color: white; font-size: 16px; }
         .btn-principal:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
 
-        .btn-cancelar { display: block; text-align: center; width: 100%; margin-top: 15px; padding: 12px 20px; background: #e0e7ff; color: #4338ca; text-decoration: none; border-radius: 12px; font-weight: bold; transition: 0.3s; }
-        .btn-cancelar:hover { background: #ddd6fe; transform: translateY(-2px); }
+        .btn-cancelar { display: block; text-align: center; width: 100%; margin-top: 15px; padding: 12px 20px; background: #e6fbf8; color: #0d3f3c; text-decoration: none; border-radius: 12px; font-weight: bold; transition: 0.3s; }
+        .btn-cancelar:hover { background: #b7f3ec; transform: translateY(-2px); }
         
         .btn-logout { background: #fee2e2; color: #dc2626; padding: 10px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; border: none; }
         .btn-logout:hover { background: #fca5a5; transform: translateY(-2px); }

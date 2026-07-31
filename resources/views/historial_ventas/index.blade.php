@@ -54,7 +54,7 @@
         text-decoration:none; padding:7px 12px; border-radius:9px; font-size:13px;
         font-weight:600; display:inline-block; border:none; cursor:pointer;
     }
-    .btn-ver{ background:#e0e7ff; color:#4338ca; }
+    .btn-ver{ background:#e6fbf8; color:#0d3f3c; }
     .btn-print{ background:#ccfbf1; color:#0f766e; }
     .acciones-fila{ display:flex; gap:6px; flex-wrap:wrap; }
 
