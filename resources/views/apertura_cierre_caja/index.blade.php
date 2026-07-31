@@ -38,7 +38,6 @@
 <x-header-navbar 
     title="Apertura y Cierre de Caja" 
     :navLinks="[
-        ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Caja', 'url' => route('caja.productos.index')],
     ]"
     :estadoCaja="(bool)$cajaAbierta"

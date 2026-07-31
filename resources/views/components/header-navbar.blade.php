@@ -4,6 +4,7 @@
     <h1 style="margin: 0; color: #0d3f3c; font-size: 22px; font-weight: 700;">📋 {{ $title }}</h1>
     
     <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <x-menu-boton />
         @foreach($navLinks as $link)
             <a href="{{ $link['url'] }}" style="text-decoration: none; color: #0d3f3c; padding: 10px 18px; border-radius: 12px; font-weight: 600; transition: 0.3s; background: #e6fbf8; display: inline-block;">
                 {{ $link['label'] }}

@@ -56,7 +56,6 @@
 <x-header-navbar 
     title="Gestión de Caja" 
     :navLinks="[
-        ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Caja', 'url' => route('caja.productos.index')],
     ]"
     :estadoCaja="$cajaAbierta"

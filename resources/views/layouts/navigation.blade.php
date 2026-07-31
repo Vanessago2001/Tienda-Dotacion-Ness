@@ -10,77 +10,9 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden sm:flex flex-wrap items-center gap-2">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
-                        {{ __('Productos') }}
-                    </x-nav-link>
-
-                    @can('gestionar-inventario')
-                        <x-nav-link :href="route('inventario.index')" :active="request()->routeIs('inventario.*')">
-                            {{ __('Inventario') }}
-                        </x-nav-link>
-                    @endcan
-
-                    <x-nav-link :href="route('caja.productos.index')" :active="request()->routeIs('caja.productos.*')">
-                        {{ __('Caja') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('apertura-cierre-caja.index')" :active="request()->routeIs('apertura-cierre-caja.*')">
-                        {{ __('Apertura/Cierre') }}
-                    </x-nav-link>
-
-                    @can('abrir-cerrar-caja')
-                        <x-nav-link :href="route('reportes.caja-dia')" :active="request()->routeIs('reportes.caja-dia')">
-                            {{ __('Caja del día') }}
-                        </x-nav-link>
-                    @endcan
-
-                    @can('ver-historial')
-                        <x-nav-link :href="route('historial-ventas.index')" :active="request()->routeIs('historial-ventas.*')">
-                            {{ __('Historial') }}
-                        </x-nav-link>
-                    @endcan
-
-                    @can('gestionar-facturas')
-                        <x-nav-link :href="route('facturas.index')" :active="request()->routeIs('facturas.*')">
-                            {{ __('Facturas') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('movimientos-caja.index')" :active="request()->routeIs('movimientos-caja.*')">
-                            {{ __('Movimientos') }}
-                        </x-nav-link>
-                    @endcan
-
-                    @can('ver-reportes')
-                        <x-nav-link :href="route('reportes.ventas')" :active="request()->routeIs('reportes.ventas')">
-                            {{ __('Informe Ventas') }}
-                        </x-nav-link>
-                    @endcan
-
-                    @can('ver-auditoria')
-                        <x-nav-link :href="route('auditoria.index')" :active="request()->routeIs('auditoria.*')">
-                            {{ __('Auditoría') }}
-                        </x-nav-link>
-                    @endcan
-
-                    @can('gestionar-empresa')
-                        <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')">
-                            {{ __('Empresa') }}
-                        </x-nav-link>
-                    @endcan
-
-                    @can('gestionar-usuarios')
-                        <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')">
-                            {{ __('Usuarios') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.*')">
-                            {{ __('Roles') }}
-                        </x-nav-link>
-                    @endcan
+                <!-- Menú (todas las opciones en un botón) -->
+                <div class="hidden sm:flex items-center">
+                    <x-menu-boton />
                 </div>
             </div>
 

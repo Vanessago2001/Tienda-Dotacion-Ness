@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Editar Movimiento</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #f8fafc, #f3e8ff, #eef2ff); margin: 0; padding: 30px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #0d3f3c 0%, #1c7a74 45%, #40E0D0 100%); margin: 0; padding: 30px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
         
 
         h1 { margin: 0; color: #1e293b; font-size: 28px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.05); }
@@ -35,7 +35,6 @@
 <x-header-navbar 
     title="Editar Movimiento" 
     :navLinks="[
-        ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Movimientos', 'url' => route('movimientos-caja.index')],
     ]"
     primaryAction="Ir a Caja POS"

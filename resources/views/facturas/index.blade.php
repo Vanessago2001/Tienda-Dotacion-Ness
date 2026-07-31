@@ -23,7 +23,6 @@
 <x-header-navbar 
     title="Gestión de Facturas" 
     :navLinks="[
-        ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Facturas', 'url' => route('facturas.index')],
     ]"
     primaryAction="Ir a Caja POS"

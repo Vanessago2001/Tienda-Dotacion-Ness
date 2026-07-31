@@ -184,10 +184,7 @@
 
         <div class="nav-links">
 
-            <a href="{{ route('dashboard') }}"
-               class="btn-dashboard">
-                Dashboard
-            </a>
+            <x-menu-boton />
 
             <a href="{{ route('categories.index') }}"
                class="btn-modulo">

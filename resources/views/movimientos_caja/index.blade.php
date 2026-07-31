@@ -5,7 +5,7 @@
     <title>Movimientos de Caja</title>
 
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #f8fafc, #f3e8ff, #eef2ff); margin: 0; padding: 30px; min-height: 100vh; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #0d3f3c 0%, #1c7a74 45%, #40E0D0 100%); margin: 0; padding: 30px; min-height: 100vh; }
         
 
         h1 { margin: 0; color: #1e293b; font-size: 32px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.05); }
@@ -59,7 +59,6 @@
 <x-header-navbar 
     title="Movimientos de Caja" 
     :navLinks="[
-        ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Caja', 'url' => route('caja.productos.index')],
     ]"
     primaryAction="Ir a Caja POS"

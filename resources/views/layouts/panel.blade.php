@@ -105,7 +105,7 @@
     <nav class="navbar">
         <div class="logo">@yield('titulo', 'Panel')</div>
         <div class="nav-links">
-            <a href="{{ route('dashboard') }}" class="btn-dashboard">Dashboard</a>
+            <x-menu-boton />
             @yield('nav')
         </div>
     </nav>

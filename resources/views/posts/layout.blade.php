@@ -18,9 +18,9 @@
             min-height:100vh;
             background: linear-gradient(
                 135deg,
-                #f8fafc,
-                #f3e8ff,
-                #eef2ff
+                #0d3f3c,
+                #1c7a74,
+                #40E0D0
             );
             padding:30px;
         }
@@ -183,10 +183,7 @@
 
         <div class="nav-links">
 
-            <a href="{{ route('dashboard') }}"
-               class="btn-dashboard">
-                Dashboard
-            </a>
+            <x-menu-boton />
 
             <a href="{{ route('posts.index') }}"
                class="btn-modulo">
