@@ -10,6 +10,9 @@
         <label>Email Personal</label>
         <input type="email" name="email" value="{{ old('email') }}">
 
+        <label>Teléfono Personal</label>
+        <input type="number" name="phone" value="{{ old('phone') }}">
+
         <label>Nombre de la Empresa</label>
         <input type="text" name="company" value="{{ old('company') }}">
 
